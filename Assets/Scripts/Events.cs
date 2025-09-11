@@ -6,4 +6,5 @@ public static class Events
     public static Action GameOver;
     public static Action EnemyKilled;     
     public static Action GameWon;
+    public static Action EnemySpawned;
 }

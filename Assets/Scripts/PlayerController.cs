@@ -1,8 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using UnityEngine.InputSystem;
-
-
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
@@ -12,11 +8,11 @@ public class PlayerMovement : MonoBehaviour
     private float direction_x;
     private Animator animator;
     private SpriteRenderer sprite;
-    private PlayerInputActions inputActions;
+    PlayerInputActions inputActions;
 
     private void Awake()
     {
-        inputActions = new PlayerInputActions();   
+        inputActions = new();   
     }
 
     private void OnEnable()
@@ -61,17 +57,17 @@ public class PlayerMovement : MonoBehaviour
             sprite.flipX = direction_x < 0;
     }
 
-    private void OnMovePerformed(InputAction.CallbackContext ctx)
+    private void OnMovePerformed(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
     {
         direction_x = ctx.ReadValue<Vector2>().x;
     }
 
-    private void OnMoveCanceled(InputAction.CallbackContext ctx)
+    private void OnMoveCanceled(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
     {
         direction_x = 0f;
     }
 
-    private void OnJumpPerformed(InputAction.CallbackContext ctx)
+    private void OnJumpPerformed(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
     {
         if (!isGrounded) return;
         HandleJump();
@@ -83,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
     }
 
-    private void OnAttackPerformed(InputAction.CallbackContext ctx)
+    private void OnAttackPerformed(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
     {
         if (animator) animator.SetTrigger("isAttacking");
         AttackHit();
@@ -95,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void AttackHit()
     {
-        float radius = 2f;
+        float radius = 1.8f;
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, radius);
 
         foreach (var hit in hits)

@@ -199,6 +199,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
-  delayForDestroy: 0.8
+  damage: 12
   chaseRange: 0.7
-  damage: 8
+  delayForDestroy: 0.8

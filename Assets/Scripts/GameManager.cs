@@ -5,29 +5,31 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private EnemySpawner spawner;
-    private int totalEnemies;
-    private int killedEnemies;
-    private float endScreenDelay = 2f;
+    private float endScreenDelay = 1.3f;
+    private int activeEnemies = 0;
 
-    void Start()
-    {
-        totalEnemies = spawner != null ? spawner.spawnAmount : 0;
-        killedEnemies = 0;
-    }
     private void OnEnable()
     {
         Events.GameOver += OnGameOver;
         Events.EnemyKilled += OnEnemyKilled;
-    }
+        Events.EnemySpawned += OnEnemySpawned; 
+    
+}
     private void OnGameOver()
     {
         if (playerAnimator) playerAnimator.SetTrigger("IsDead");
         StartCoroutine(EndGame());
     }
+
+    private void OnEnemySpawned()
+    {
+        activeEnemies++;
+    }
+
     private void OnEnemyKilled()
     {
-        killedEnemies++;
-        if (killedEnemies >= totalEnemies)
+        activeEnemies--;
+        if (activeEnemies <= 0)
         {
             StartCoroutine(GameWon());
         }
@@ -48,5 +50,6 @@ public class GameManager : MonoBehaviour
     {
         Events.GameOver -= OnGameOver;
         Events.EnemyKilled -= OnEnemyKilled;
+        Events.EnemySpawned -= OnEnemySpawned; 
     }
 }

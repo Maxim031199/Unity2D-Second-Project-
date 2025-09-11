@@ -786,9 +786,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectablePrefab: {fileID: 8883378754241855040, guid: 515feab45bb367340a13e5f3d6746fe0, type: 3}
-  spawnAmount: 12
+  spawnAmount: 6
   spawnDelayMin: 1
-  spawnDelayMax: 2.5
+  spawnDelayMax: 2.2
   minBound: {fileID: 477498879}
   maxBound: {fileID: 337270541}
 --- !u!212 &1091020467
@@ -855,8 +855,8 @@ Transform:
   m_GameObject: {fileID: 1091020465}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0003, y: 4.71, z: 0}
-  m_LocalScale: {x: 23.637396, y: 0.4234, z: 1}
+  m_LocalPosition: {x: 0.0208, y: 4.71, z: 0}
+  m_LocalScale: {x: 17.684502, y: 0.4234, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 477498879}

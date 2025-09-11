@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using UnityEditor.PackageManager;
+using UnityEngine;
 
 
 public class EnemyController : MonoBehaviour
@@ -32,7 +33,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        if (player == null) return;
+        if (player == null || isDead) return;
         bool isMoving = Vector2.Distance(transform.position, player.position) > chaseRange;
         Movement(isMoving);
     }
@@ -77,19 +78,22 @@ public class EnemyController : MonoBehaviour
 
     public void Die()
     {
+        if (isDead) return;  
         isDead = true;
-        Events.EnemyKilled?.Invoke();
         StartCoroutine(EnemyDeath());
     }
 
     IEnumerator EnemyDeath()
     {
+
         yield return new WaitForSeconds(animationDelay);
-        
-            sprite.color = Color.red;
-            animator.SetTrigger("IsHit");
-            isDead = true;
-        Destroy(gameObject , delayForDestroy);  
+        if (animator) animator.SetTrigger("IsHit");
+        if (sprite) sprite.color = Color.red;
+
+        yield return new WaitForSeconds(delayForDestroy);
+
+        Events.EnemyKilled?.Invoke();
+        Destroy(gameObject);  
     }
 }
 

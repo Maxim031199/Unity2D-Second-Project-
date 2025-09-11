@@ -23,7 +23,7 @@ public class EnemySpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(spawnDelayMin, spawnDelayMax));
             var collectable = Instantiate(collectablePrefab, GetRandomSpawnPoint(), Quaternion.identity);
-                
+            Events.EnemySpawned?.Invoke();
         }
     }
 
